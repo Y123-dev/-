@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>民俗节日 - 云南民族文化</title>
+    <link rel="stylesheet" href="calendar-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            padding-top: 60px; /* 为固定导航栏留出空间 */
+        }
+
+        /* 导航栏样式 */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            margin: 0 15px !important;
+            text-decoration: none !important;
+            color: #2c3e50 !important;
+            padding: 10px 20px !important;
+            border-radius: 5px !important;
+            transition: all 0.3s ease !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+        }
+
+        .nav-btn i {
+            font-size: 18px !important;
+            margin-right: 5px !important;
+        }
+
+        .nav-btn:hover {
+            background-color: #2c3e50 !important;
+            color: white !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .nav-btn.active {
+            background-color: #2c3e50 !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 新的导航栏 -->
+    <header>
+        <nav>
+            <a href="index.html" class="nav-btn">
+                <i class="fas fa-home"></i><span>首页</span>
+            </a>
+            <a href="features.html" class="nav-btn">
+                <i class="fas fa-landmark"></i><span>文化特征</span>
+            </a>
+            <a href="festivals.html" class="nav-btn active">
+                <i class="fas fa-calendar-alt"></i><span>民俗节日</span>
+            </a>
+            <a href="costumes.html" class="nav-btn">
+                <i class="fas fa-tshirt"></i><span>民族服饰</span>
+            </a>
+            <a href="cultural-map.html" class="nav-btn">
+                <i class="fas fa-map-marked-alt"></i><span>文化地图</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- 原有的节日日历内容 -->
+    <div class="container">
+        <main class="festivals-content">
+            <div class="festival-calendar">
+                <div class="calendar-grid">
+                    <!-- 日历内容将通过JS动态生成 -->
+                </div>
+            </div>
+        </main>
+
+        <!-- 节日详情模态框 -->
+        <div class="festival-modal" id="festivalModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-header">
+                    <h2 id="modalFestivalName"></h2>
+                    <span class="modal-ethnic-tag" id="modalEthnicTag"></span>
+                </div>
+                <div class="modal-time" id="modalTime"></div>
+                <div class="modal-description" id="modalDescription"></div>
+            </div>
+        </div>
+    </div>
+    <script src="festivals.js"></script>
+</body>
+</html> 

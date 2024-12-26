@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>云南民族文化</title>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=WIIBZ-RY6LZ-EOBXL-ZICSL-723DK-C4FQY"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 添加主题颜色变量 */
+        :root {
+            --primary-color: #3498db;      /* 主色调：蓝色 */
+            --secondary-color: #2ecc71;    /* 次要色：绿色 */
+            --accent-color: #e74c3c;       /* 强调色：红色 */
+            --background-color: #f5f7fa;   /* 背景色：浅灰 */
+            --text-color: #2c3e50;         /* 文字色：深灰 */
+        }
+
+        /* 整体布局 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        /* 导航栏样式优化 */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 背景容器优化 */
+        .background-container {
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -1;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 0;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-text h1 {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-text h1::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: rgba(46, 204, 113, 0.3);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(30px);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 0.4;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        .hero-text h1 {
+            font-size: 4em;
+            margin: 0 0 20px 0;
+            font-weight: 700;
+            color: #2ecc71;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5),
+                        0 0 20px rgba(46, 204, 113, 0.5);
+            letter-spacing: 2px;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+            padding: 20px 40px;
+        }
+
+        .hero-text p {
+            font-size: 1.8em;
+            margin: 0;
+            font-weight: 500;
+            color: #a8e6cf;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 1px;
+        }
+
+        /* 特色卡片网格优化 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, var(--background-color) 0%, white 100%);
+            border-radius: 20px;
+            margin-top: -40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            background: linear-gradient(to right, white, rgba(46, 204, 113, 0.1));
+            border-left: 4px solid #27ae60;
+        }
+
+        .feature-card h3 {
+            color: #27ae60;
+            margin: 0 0 15px 0;
+            font-size: 1.8em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .feature-card p {
+            color: #2c3e50;
+            margin: 0;
+            line-height: 1.8;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        /* 地图容器优化 */
+        #map-container {
+            width: 100%;
+            height: 500px;
+            margin-top: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary-color);
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 加载动画矩形 */
+        .loading-rect {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: #f5f7fa;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .loading-rect.left {
+            left: 0;
+        }
+
+        .loading-rect.right {
+            right: 0;
+        }
+
+        .loading-rect.left.animate-left {
+            transform: translateX(-100%);
+        }
+
+        .loading-rect.right.animate-right {
+            transform: translateX(100%);
+        }
+
+        /* 淡出动画 */
+        .loading-content.fade-out {
+            opacity: 0;
+        }
+
+        /* 加载完成后的状态 */
+        body.loaded {
+            overflow: auto;
+        }
+
+        /* 确保加载屏幕覆盖整个视口 */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 2000;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .loading-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-title {
+            font-size: 2.5em;
+            color: #2ecc71;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(46, 204, 113, 0.2);
+            font-weight: 700;
+        }
+
+        .loading-subtitle {
+            font-size: 1.2em;
+            color: #27ae60;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .click-hint {
+            color: #2ecc71;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        /* 添加响应式布局 */
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .background-container {
+                height: 60vh;
+            }
+
+            .feature-card {
+                height: auto;
+                min-height: 150px;
+            }
+
+            .hero-text h1 {
+                font-size: 3em;
+            }
+
+            .hero-text p {
+                font-size: 1.4em;
+            }
+
+            .feature-card h3 {
+                font-size: 1.5em;
+            }
+
+            .feature-card p {
+                font-size: 1em;
+            }
+
+            .hero-text h1::before {
+                width: 140%;
+                height: 140%;
+            }
+        }
+
+        /* 添加跳转按钮样式 */
+        .travel-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: rgba(46, 204, 113, 0.9);  /* 使用绿色 */
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .travel-link:hover {
+            background-color: #27ae60;  /* 悬浮时变深 */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .travel-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .travel-link:hover i {
+            transform: translateX(5px);  /* 箭头移动效果 */
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .travel-link {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loading-rect left"></div>
+        <div class="loading-rect right"></div>
+        <div class="loading-content">
+            <div class="loading-title">云南民族文化</div>
+            <div class="loading-subtitle">探索云南26个民族的独特魅力</div>
+            <div class="click-hint">点击任意位置进入</div>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="nav-btn active">
+                <i class="fas fa-home"></i><span>首页</span>
+            </a>
+            <a href="features.html" class="nav-btn">
+                <i class="fas fa-landmark"></i><span>文化特征</span>
+            </a>
+            <a href="festivals.html" class="nav-btn">
+                <i class="fas fa-calendar-alt"></i><span>民俗节日</span>
+            </a>
+            <a href="costumes.html" class="nav-btn">
+                <i class="fas fa-tshirt"></i><span>民族服饰</span>
+            </a>
+            <a href="cultural-map.html" class="nav-btn">
+                <i class="fas fa-map-marked-alt"></i><span>文化地图</span>
+            </a>
+        </nav>
+    </header>
+
+    <div class="background-container">
+        <img src="images/25c303c5d06acd195af3327bd6e46bf.jpg" alt="云南民族文化背景" class="background-image">
+        <div class="overlay"></div>
+        <div class="hero-text">
+            <h1>云南民族文化</h1>
+            <p>探索云南26个民族的独特文化魅力</p>
+            <a href="https://travel.yunnan.cn/" target="_blank" class="travel-link">
+                <span>前往云南文旅官网</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>民族服饰</h3>
+                <p>探索云南各民族独特的传统服饰，感受其中蕴含的文化内涵和艺术魅力。</p>
+            </div>
+            <div class="feature-card">
+                <h3>民俗节日</h3>
+                <p>了解云南各民族丰富多彩的传统节日，体验独特的节日文化。</p>
+            </div>
+            <div class="feature-card">
+                <h3>文化特征</h3>
+                <p>探索云南各民族独特的文化特色，了解其独特的生活方式和传统习俗。</p>
+            </div>
+            <div class="feature-card">
+                <h3>文化地图</h3>
+                <p>通过地图形式直观展现云南各地区的民族分布和文化特色。</p>
+            </div>
+        </div>
+
+        <div id="map-container" style="width: 100%; height: 400px; margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            var center = new qq.maps.LatLng(25.0389, 102.7181);
+            var map = new qq.maps.Map(document.getElementById('map-container'), {
+                center: center,
+                zoom: 7,
+                minZoom: 6,
+                maxZoom: 12,
+                boundary: new qq.maps.LatLngBounds(
+                    new qq.maps.LatLng(21.1000, 97.5000),
+                    new qq.maps.LatLng(29.2000, 106.2000)
+                )
+            });
+
+            // 创建自定义信息窗口
+            var customInfoWindow = {
+                div: document.createElement('div'),
+                setContent: function(content) {
+                    this.div.innerHTML = content;
+                },
+                open: function() {
+                    this.div.style.display = 'block';
+                },
+                close: function() {
+                    this.div.style.display = 'none';
+                }
+            };
+
+            // 设置自定义信息窗口的样式
+            customInfoWindow.div.style.cssText = `
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+                z-index: 1000;
+                max-height: 80vh;
+                overflow-y: auto;
+            `;
+            document.body.appendChild(customInfoWindow.div);
+
+            // 为每个景点创建标记
+            locations.forEach(function(loc) {
+                var marker = new qq.maps.Marker({
+                    position: loc.position,
+                    map: map,
+                    title: loc.title
+                });
+
+                // 添加点击事件监听器
+                qq.maps.event.addListener(marker, 'click', function() {
+                    var features = loc.details.features.map(function(feature) {
+                        return '<li>' + feature + '</li>';
+                    }).join('');
+
+                    var contentHTML = 
+                        '<div style="padding:20px; max-width:400px; position:relative;">' +
+                        '<button onclick="this.parentElement.parentElement.style.display=\'none\'" ' +
+                        'style="position:absolute; right:10px; top:10px; border:none; background:none; cursor:pointer; font-size:20px;">×</button>' +
+                        '<h3 style="margin:0 0 10px 0; color:#2c3e50;">' + loc.title + '</h3>' +
+                        '<p style="margin:0 0 10px 0; color:#666;">' + loc.content + '</p>' +
+                        '<div style="border-top:1px solid #eee; padding-top:10px;">' +
+                        '<p><strong>地址：</strong>' + loc.details.address + '</p>' +
+                        '<p><strong>开放时间：</strong>' + loc.details.openTime + '</p>' +
+                        '<p><strong>特色亮点：</strong></p>' +
+                        '<ul style="margin:5px 0; padding-left:20px;">' + features + '</ul>' +
+                        '<p><strong>详细介绍：</strong></p>' +
+                        '<p style="margin:5px 0;">' + loc.details.description + '</p>' +
+                        '</div>' +
+                        '</div>';
+
+                    customInfoWindow.setContent(contentHTML);
+                    customInfoWindow.open();
+                });
+            });
+
+            // 点击地图时关闭信息窗口
+            qq.maps.event.addListener(map, 'click', function() {
+                customInfoWindow.close();
+            });
+
+            // 点击ESC键关闭信息窗口
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    customInfoWindow.close();
+                }
+            });
+        };
+
+        // 定义景点数据
+        var locations = [
+            {
+                position: new qq.maps.LatLng(25.0389, 102.7181),
+                title: '云南民族村',
+                content: '展示云南26个民族的传统文化和生活方式。',
+                details: {
+                    address: '云南省昆明市西山民族村',
+                    features: ['民族建筑', '民族表演', '民族美食', '民族工艺'],
+                    openTime: '9:00-17:30',
+                    description: '云南民族村是一个大型民族文化主题公园，集中展示云南26个民族的传统文化、建筑、服饰、饮食、节庆等文化特色。'
+                }
+            },
+            {
+                position: new qq.maps.LatLng(25.8827, 100.2280),
+                title: '大理古城'
+            },
+            {
+                position: new qq.maps.LatLng(27.8290, 100.7220),
+                title: '香格里拉藏文化馆'
+            },
+            {
+                position: new qq.maps.LatLng(22.0025, 100.7971),
+                title: '西双版纳傣族园'
+            },
+            {
+                position: new qq.maps.LatLng(26.8768, 100.2301),
+                title: '丽江古城'
+            },
+            {
+                position: new qq.maps.LatLng(23.3691, 103.3760),
+                title: '红河哈尼梯田'
+            },
+            {
+                position: new qq.maps.LatLng(24.4721, 98.5850),
+                title: '德宏傣族文化园'
+            },
+            {
+                position: new qq.maps.LatLng(25.5916, 100.2390),
+                title: '崇圣寺三塔'
+            },
+            {
+                position: new qq.maps.LatLng(23.6124, 102.8234),
+                title: '彝族火把广场'
+            },
+            {
+                position: new qq.maps.LatLng(24.8801, 102.8329),
+                title: '石林彝族文化园'
+            },
+            {
+                position: new qq.maps.LatLng(26.5724, 99.9283),
+                title: '玉龙雪山纳西族文化园'
+            },
+            {
+                position: new qq.maps.LatLng(25.1234, 101.5267),
+                title: '楚雄彝族文化园'
+            },
+            {
+                position: new qq.maps.LatLng(23.8898, 100.0923),
+                title: '普洱茶文化园'
+            },
+            {
+                position: new qq.maps.LatLng(24.9927, 101.4673),
+                title: '易门彝族文化馆'
+            },
+            {
+                position: new qq.maps.LatLng(22.5850, 101.0672),
+                title: '澜沧拉祜族文化园'
+            }
+        ];
+
+        // 加载屏幕点击事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingScreen = document.querySelector('.loading-screen');
+            const loadingContent = document.querySelector('.loading-content');
+            const leftRect = document.querySelector('.loading-rect.left');
+            const rightRect = document.querySelector('.loading-rect.right');
+            const body = document.body;
+
+            if (loadingScreen) {
+                loadingScreen.addEventListener('click', function() {
+                    loadingContent.classList.add('fade-out');
+                    setTimeout(() => {
+                        leftRect.classList.add('animate-left');
+                        rightRect.classList.add('animate-right');
+                        body.classList.add('loaded');
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                        }, 800);
+                    }, 300);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
